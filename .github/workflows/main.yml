@@ -18,7 +18,9 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
-
+      - name: 23f1002563@ds.study.iitm.ac.in
+        run: | #shell
+              echo "Hello, world!"
       - name: Fetch ISS location data
         run: | # python
           uv run --with requests python << 'EOF'
@@ -37,5 +39,4 @@ jobs:
           git add iss-location.jsonl
           git commit -m "Update ISS position data [skip ci]" || exit 0
           git push
-      - name: 23f1002563@ds.study.iitm.ac.in
-        run: echo "Hello, world!"
+     
