@@ -1,17 +1,29 @@
-name: Test Action
-
+name: Daily Commit Action
 
 on:
-  push:
-    branches:
-      - main  # or any branch you want to trigger the action
+  schedule:
+    - cron: '30 5 * * *'  # Runs daily at 5:30 AM UTC
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
-  test:
+  daily_commit:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: 23f1002563@ds.study.iitm.ac.in
-        run: echo "Hello, world!"
+      - name: 23f1002563@ds.study.iitm.ac.in  # Step with email
+        run: echo "Running scheduled commit action"
+
+      - name: Update log file
+        run: |
+          echo "Last run: $(date -u)" >> update.log
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+          git add update.log
+          git commit -m "Automated commit: $(date -u)"
+          git push
